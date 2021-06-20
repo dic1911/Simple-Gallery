@@ -59,6 +59,7 @@ import com.simplemobiletools.gallery.pro.models.Medium
 import com.simplemobiletools.gallery.pro.models.ThumbnailItem
 import kotlinx.android.synthetic.main.activity_medium.*
 import kotlinx.android.synthetic.main.bottom_actions.*
+import org.apache.commons.io.IOUtils
 import java.io.File
 import java.io.OutputStream
 import java.util.*
@@ -108,6 +109,37 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
         initFavorites()
     }
 
+    private fun handleMotionPhoto(): Int {
+        var mp = -1
+        val data = File(mPath).readBytes()
+        for (index in 134 until data.size) {
+            if ((index + 14) > data.size) break
+            if (data[index - 2] == (0xFF.toByte()) && data[index - 1] == (0xD9.toByte()) &&
+                data[index] == (0x00.toByte()) && data[index + 1] == (0x00.toByte()) &&
+                data[index + 2] == (0x00.toByte()) &&
+                data[index + 4] == (0x66.toByte()) && data[index + 5] == (0x74.toByte()) &&
+                data[index + 6] == (0x79.toByte()) && data[index + 7] == (0x70.toByte())) {
+                if (index + data[index + 3] > data.size) continue
+                mp = index
+            }
+        }
+        if (mp > -1) {
+            val ba = File(mPath).readBytes()
+            val ext = mPath.getFilenameExtension()
+            val mpvid = mPath.replace(".$ext", "_mpvid.mp4")
+            val newba = IOUtils.toByteArray(ba.inputStream(mp, (ba.size - mp)))
+            val tmp = File(mpvid)
+            if (!tmp.exists()) {
+                if (tmp.createNewFile()) {
+                    tmp.writeBytes(newba)
+                    toast("Extracted video from motion photo")
+                    mPath = mpvid
+                }
+            }
+        }
+        return mp
+    }
+
     override fun onResume() {
         super.onResume()
         if (!hasPermission(PERMISSION_WRITE_STORAGE)) {
@@ -134,6 +166,10 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
 
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val filename = getCurrentMedium()?.name ?: mPath.getFilenameFromPath()
+
+        if (mPath.endsWith("MP.jpg"))
+            handleMotionPhoto()
+
         supportActionBar?.title = filename
         window.statusBarColor = Color.TRANSPARENT
     }
