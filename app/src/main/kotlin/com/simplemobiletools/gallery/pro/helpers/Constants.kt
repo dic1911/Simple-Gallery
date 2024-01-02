@@ -89,6 +89,8 @@ const val LIMIT_FOLDER_TITLE = "folder_limit_title"
 const val THUMBNAIL_SPACING = "thumbnail_spacing"
 const val FILE_ROUNDED_CORNERS = "file_rounded_corners"
 const val CUSTOM_FOLDERS_ORDER = "custom_folders_order"
+const val ENABLE_MOTION_PHOTO_SUPPORT = "enable_motion_photo_support"
+const val ALWAYS_VIEW_VIDEO_FROM_MOTION_PHOTO = "always_view_video_from_motion_photo"
 
 // slideshow
 const val SLIDESHOW_INTERVAL = "slideshow_interval"
@@ -115,6 +117,8 @@ const val SHOW_NEXT_ITEM = "show_next_item"
 const val SHOW_PREV_ITEM = "show_prev_item"
 const val GO_TO_NEXT_ITEM = "go_to_next_item"
 const val GO_TO_PREV_ITEM = "go_to_prev_item"
+const val MOTION_PHOTO_MODE = "motion_photo_mode"
+const val POSITION_SHIFT = "position_shift"
 const val MAX_COLUMN_COUNT = 20
 const val SHOW_TEMP_HIDDEN_DURATION = 300000L
 const val CLICK_MAX_DURATION = 150

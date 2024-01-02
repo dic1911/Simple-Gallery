@@ -260,6 +260,14 @@ class Config(context: Context) : BaseConfig(context) {
         return Gson().fromJson<ArrayList<AlbumCover>>(albumCovers, listType) ?: ArrayList(1)
     }
 
+    var enableMotionPhotoSupport: Boolean
+        get() = prefs.getBoolean(ENABLE_MOTION_PHOTO_SUPPORT, true)
+        set(enableMotionPhotoSupport) = prefs.edit().putBoolean(ENABLE_MOTION_PHOTO_SUPPORT, enableMotionPhotoSupport).apply()
+
+    var alwaysViewVideoFromMotionPhoto: Boolean
+        get() = prefs.getBoolean(ALWAYS_VIEW_VIDEO_FROM_MOTION_PHOTO, false)
+        set(alwaysViewVideoFromMotionPhoto) = prefs.edit().putBoolean(ALWAYS_VIEW_VIDEO_FROM_MOTION_PHOTO, alwaysViewVideoFromMotionPhoto).apply()
+
     var hideSystemUI: Boolean
         get() = prefs.getBoolean(HIDE_SYSTEM_UI, false)
         set(hideSystemUI) = prefs.edit().putBoolean(HIDE_SYSTEM_UI, hideSystemUI).apply()

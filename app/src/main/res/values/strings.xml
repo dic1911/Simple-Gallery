@@ -421,6 +421,12 @@
         https://www.reddit.com/r/SimpleMobileTools
     </string>
 
+    <!-- Motion Photo -->
+    <string name="motion_photo" translatable="false">Motion Photo</string>
+    <string name="use_motion_photo_support">Enable GCam Motion Photo support</string>
+    <string name="motion_photo_always_view_video">Always view video from Motion Photo</string>
+    <string name="motion_photo_toggle_mpvid">Toggle MP video</string>
+
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

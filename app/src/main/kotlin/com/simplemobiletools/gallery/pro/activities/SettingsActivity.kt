@@ -40,6 +40,7 @@ class SettingsActivity : SimpleActivity() {
 
     private fun setupSettingItems() {
         setupCustomizeColors()
+        setupMotionPhotoMaster()
         setupUseEnglish()
         setupChangeDateTimeFormat()
         setupFileLoadingPriority()
@@ -106,7 +107,7 @@ class SettingsActivity : SimpleActivity() {
 
     private fun setupSectionColors() {
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
-        arrayListOf(visibility_label, videos_label, thumbnails_label, scrolling_label, fullscreen_media_label, security_label,
+        arrayListOf(motion_photo_label, visibility_label, videos_label, thumbnails_label, scrolling_label, fullscreen_media_label, security_label,
             file_operations_label, deep_zoomable_images_label, extended_details_label, bottom_actions_label, recycle_bin_label,
             migrating_label).forEach {
             it.setTextColor(adjustedPrimaryColor)
@@ -116,6 +117,21 @@ class SettingsActivity : SimpleActivity() {
     private fun setupCustomizeColors() {
         settings_customize_colors_holder.setOnClickListener {
             startCustomizationActivity()
+        }
+    }
+
+    // Motion Photo
+    private fun setupMotionPhotoMaster() {
+        settings_motion_photo_support.isChecked = config.enableMotionPhotoSupport
+        settings_motion_photo_support_holder.setOnClickListener {
+            settings_motion_photo_support.toggle()
+            config.enableMotionPhotoSupport = settings_motion_photo_support.isChecked
+        }
+
+        settings_motion_photo_always_view_video.isChecked = config.alwaysViewVideoFromMotionPhoto
+        settings_motion_photo_always_view_video_holder.setOnClickListener {
+            settings_motion_photo_always_view_video.toggle()
+            config.alwaysViewVideoFromMotionPhoto = settings_motion_photo_always_view_video.isChecked
         }
     }
 

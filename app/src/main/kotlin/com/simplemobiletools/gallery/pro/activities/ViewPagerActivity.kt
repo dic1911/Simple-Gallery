@@ -15,18 +15,21 @@ import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore.Images
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
+import androidx.appcompat.view.menu.MenuView
 import androidx.exifinterface.media.ExifInterface
 import androidx.print.PrintHelper
 import androidx.viewpager.widget.ViewPager
@@ -87,6 +90,8 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
     private var mFavoritePaths = ArrayList<String>()
     private var mIgnoredPaths = ArrayList<String>()
 
+    private var vpShift = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         useDynamicTheme = false
         super.onCreate(savedInstanceState)
@@ -109,34 +114,85 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
         initFavorites()
     }
 
+    private fun isMotionPhotoFilename(): Boolean {
+        val path = getCurrentPath()
+        return path.endsWith("MP.jpg") || path.endsWith("_mpvid.mp4")
+            path.getFilenameFromPath().contains("MVIMG")
+    }
+
     private fun handleMotionPhoto(): Int {
         var mp = -1
-        val data = File(mPath).readBytes()
+        var pos_shift = 0
+        val path = getCurrentPath()
+        val data = File(path).readBytes()
+        val isVid = path.endsWith("_mpvid.mp4")
+        var viewVideo = config.alwaysViewVideoFromMotionPhoto
+        val newPath = if (isVid) path.replace("_mpvid.mp4", ".jpg")
+                    else path.replace(".jpg", "_mpvid.mp4")
+
         for (index in 134 until data.size) {
-            if ((index + 14) > data.size) break
-            if (data[index - 2] == (0xFF.toByte()) && data[index - 1] == (0xD9.toByte()) &&
-                data[index] == (0x00.toByte()) && data[index + 1] == (0x00.toByte()) &&
+            if (isVid || (index + 14) > data.size) break
+//            if (data[index - 2] == (0xFF.toByte()) && data[index - 1] == (0xD9.toByte()) &&
+            if (data[index] == (0x00.toByte()) && data[index + 1] == (0x00.toByte()) &&
                 data[index + 2] == (0x00.toByte()) &&
                 data[index + 4] == (0x66.toByte()) && data[index + 5] == (0x74.toByte()) &&
                 data[index + 6] == (0x79.toByte()) && data[index + 7] == (0x70.toByte())) {
                 if (index + data[index + 3] > data.size) continue
                 mp = index
             }
+//            else if (data[index] == (0x00.toByte()) && data [index + 1] == (0x00.toByte()) &&
+//                        data[index + 2] == (0x00.toByte()) && data[index + 3] == (0x18.toByte()) &&
+//                        data[index + 4] == (0x66.toByte()) && data[index + 5] == (0x74.toByte()) &&
+//                        data[index + 6] == (0x79.toByte()) && data[index + 7] == (0x70.toByte()) &&
+//                        data[index + 8] == (0x6D.toByte()) && data[index + 9] == (0x70.toByte()) &&
+//                        data[index + 10] == (0x34.toByte()) && data[index + 11] == (0x32.toByte())) {
+//                mp = index
+//            }
         }
         if (mp > -1) {
-            val ba = File(mPath).readBytes()
-            val ext = mPath.getFilenameExtension()
-            val mpvid = mPath.replace(".$ext", "_mpvid.mp4")
+            val ba = File(path).readBytes()
             val newba = IOUtils.toByteArray(ba.inputStream(mp, (ba.size - mp)))
-            val tmp = File(mpvid)
+            val tmp = File(newPath)
             if (!tmp.exists()) {
                 if (tmp.createNewFile()) {
                     tmp.writeBytes(newba)
                     toast("Extracted video from motion photo")
-                    mPath = mpvid
+//                    viewVideo = true
+//                    view_pager.setCurrentItem(view_pager.currentItem + 1, false)
+                    pos_shift = 1
+
+                    val duration = getDuration(newPath)!!
+                    val ts = System.currentTimeMillis()
+                    val medium = Medium(null, newPath.getFilenameFromPath(), mPath, mPath.getParentPath(), ts, ts, File(mPath).length(), TYPE_VIDEOS, duration, false, 0)
+                    ensureBackgroundThread {
+                        mediaDB.insert(medium)
+                    }
+                    mMediaFiles.add(0, medium)
+                    refreshViewPager()
+                    updatePagerItems(mMediaFiles.toMutableList())
+                    goToNextMedium(true)
+                } else {
+                    toast("Couldn't create video file from motion photo")
+                    viewVideo = false
                 }
             }
         }
+
+//        if ((mp > -1 || isVid) && !intent.hasExtra(MOTION_PHOTO_MODE)) {
+////        if (!intent.hasExtra(MOTION_PHOTO_MODE)) {
+//            Intent(this, ViewPagerActivity::class.java).apply {
+//                putExtra(SKIP_AUTHENTICATION, true)
+//                putExtra(PATH, if (viewVideo) newPath else path)
+////                putExtra(PATH, mPath)
+//                putExtra(SHOW_ALL, mShowAll)
+//                putExtra(SHOW_FAVORITES, mPath == FAVORITES)
+//                putExtra(SHOW_RECYCLE_BIN, mPath == RECYCLE_BIN)
+//                putExtra(MOTION_PHOTO_MODE, if (isVid || viewVideo) 1 else 0)
+//                putExtra(POSITION_SHIFT, pos_shift)
+//                startActivity(this)
+//            }
+//            finish()
+//        }
         return mp
     }
 
@@ -167,11 +223,12 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val filename = getCurrentMedium()?.name ?: mPath.getFilenameFromPath()
 
-        if (mPath.endsWith("MP.jpg"))
+        if (config.enableMotionPhotoSupport && isMotionPhotoFilename())
             handleMotionPhoto()
 
         supportActionBar?.title = filename
         window.statusBarColor = Color.TRANSPARENT
+        vpShift = intent.getIntExtra(POSITION_SHIFT, 0)
     }
 
     override fun onPause() {
@@ -211,6 +268,8 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
             findItem(R.id.menu_rename).isVisible = visibleBottomActions and BOTTOM_ACTION_RENAME == 0 && !currentMedium.getIsInRecycleBin()
             findItem(R.id.menu_rotate).isVisible = currentMedium.isImage() && visibleBottomActions and BOTTOM_ACTION_ROTATE == 0
             findItem(R.id.menu_set_as).isVisible = visibleBottomActions and BOTTOM_ACTION_SET_AS == 0
+            findItem(R.id.menu_toggle_mpvid).isVisible = (isMotionPhotoFilename())// && intent.hasExtra(MOTION_PHOTO_MODE))
+            findItem(R.id.menu_toggle_mpvid).icon = getMotionPhotoIcon()
             findItem(R.id.menu_copy_to).isVisible = visibleBottomActions and BOTTOM_ACTION_COPY == 0
             findItem(R.id.menu_move_to).isVisible = visibleBottomActions and BOTTOM_ACTION_MOVE == 0
             findItem(R.id.menu_save_as).isVisible = rotationDegrees != 0
@@ -252,6 +311,7 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
             R.id.menu_open_with -> openPath(getCurrentPath(), true)
             R.id.menu_hide -> toggleFileVisibility(true)
             R.id.menu_unhide -> toggleFileVisibility(false)
+            R.id.menu_toggle_mpvid -> toggleMPVid(intent.getIntExtra(MOTION_PHOTO_MODE, -1))
             R.id.menu_share -> shareMediumPath(getCurrentPath())
             R.id.menu_delete -> checkDeleteConfirmation()
             R.id.menu_rename -> renameFile()
@@ -719,6 +779,14 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
         }
     }
 
+    private fun getMotionPhotoIcon(): Drawable {
+        val path = getCurrentPath()
+        return if (path.endsWith("_mpvid.mp4"))
+                resources.getDrawable(R.drawable.ic_motion_photos_on, theme)
+            else
+                resources.getDrawable(R.drawable.ic_motion_photos_off, theme)
+    }
+
     private fun saveImageAs() {
         val currPath = getCurrentPath()
         SaveAsDialog(this, currPath, false) {
@@ -1144,6 +1212,45 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
         }
     }
 
+    private fun toggleMPVid(mode: Int) {
+        // mode => 0: pic, 1: vid
+        var m = mode
+        val currentPath = getCurrentPath()//intent.getStringExtra(PATH)
+        Log.d("030-MP path", currentPath)
+        var newPath = ""
+
+        Log.d("030-MP", "mode = ${m}")
+        if (m == -1)
+            m = if (currentPath.endsWith("_mpvid.mp4")) 1 else 0
+
+        Log.d("030-MP", "fixed mode = ${m}")
+        when (m) {
+            0 -> newPath = currentPath.replace(".jpg", "_mpvid.mp4")
+            1 -> newPath = currentPath.replace("_mpvid.mp4", ".jpg")
+        }
+        Log.d("030-MP", "newPath = ${newPath}")
+
+        if (!File(newPath).exists()) {
+            if (handleMotionPhoto() == -1) {
+                toast("Failed to extract video")
+            } else {
+
+            }
+            return
+        }
+
+        Intent(this, ViewPagerActivity::class.java).apply {
+            putExtra(SKIP_AUTHENTICATION, true)
+            putExtra(PATH, newPath)
+            putExtra(SHOW_ALL, intent.getBooleanExtra(SHOW_ALL, true))
+            putExtra(SHOW_FAVORITES, newPath == FAVORITES)
+            putExtra(SHOW_RECYCLE_BIN, newPath == RECYCLE_BIN)
+            putExtra(MOTION_PHOTO_MODE, if (newPath.endsWith("_mpvid.mp4")) 1 else 0)
+            startActivity(this)
+        }
+        finish()
+    }
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         initBottomActionsLayout()
@@ -1153,6 +1260,11 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
         if (config.getFolderSorting(mDirectory) and SORT_BY_RANDOM == 0) {
             GetMediaAsynctask(applicationContext, mDirectory, false, false, mShowAll) {
                 gotMedia(it)
+
+                // Motion Photo workaround?
+//                Log.d("030-MP item", view_pager.currentItem.toString())
+//                view_pager.currentItem = (view_pager.currentItem + vpShift)
+//                Log.d("030-MP item", view_pager.currentItem.toString())
             }.execute()
         }
     }
@@ -1170,12 +1282,13 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
         mPrevHashcode = media.hashCode()
         mMediaFiles = media
         mPos = if (mPos == -1) {
-            getPositionInList(media)
+            getPositionInList(media) + vpShift
         } else {
             Math.min(mPos, mMediaFiles.size - 1)
         }
 
         updateActionbarTitle()
+        updateMotionPhotoInfo()
         updatePagerItems(mMediaFiles.toMutableList())
         invalidateOptionsMenu()
         checkOrientation()
@@ -1317,9 +1430,37 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
     private fun updateActionbarTitle() {
         runOnUiThread {
             if (mPos < getCurrentMedia().size) {
-                supportActionBar?.title = getCurrentMedia()[mPos].path.getFilenameFromPath()
+                val filename = getCurrentMedia()[mPos].path.getFilenameFromPath()
+                supportActionBar?.title = filename
+                Log.d("030-MP filename", filename)
+
+//                if (!mPath.getFilenameFromPath().equals(filename)) {
+//                    Log.d("030-path",filename + " | " + mPath.getFilenameFromPath())
+//                    refreshViewPager()
+//                    Intent(this, ViewPagerActivity::class.java).apply {
+//                        putExtra(SKIP_AUTHENTICATION, true)
+//                        putExtra(PATH, mPath)
+//                        putExtra(SHOW_ALL, intent.getBooleanExtra(SHOW_ALL, true))
+//                        putExtra(SHOW_FAVORITES, mPath == FAVORITES)
+//                        putExtra(SHOW_RECYCLE_BIN, mPath == RECYCLE_BIN)
+//                        putExtra(MOTION_PHOTO_MODE, if (mPath.endsWith("_mpvid.mp4")) 1 else 0)
+//                        startActivity(this)
+//                    }
+//                    finish()
+//                }
             }
         }
+    }
+
+    private fun updateMotionPhotoInfo() {
+//        findViewById<View>(R.id.menu_toggle_mpvid).visibility =
+//            if (isMotionPhotoFilename()) View.VISIBLE else View.GONE
+//        findItem(R.id.menu_toggle_mpvid).isVisible = intent.hasExtra(MOTION_PHOTO_MODE)
+//        findItem(R.id.menu_toggle_mpvid).icon =
+//            if (intent.getIntExtra(MOTION_PHOTO_MODE, 0) == 1)
+//                resources.getDrawable(R.drawable.ic_motion_photos_on, theme)
+//            else
+//                resources.getDrawable(R.drawable.ic_motion_photos_off, theme)
     }
 
     private fun getCurrentMedium(): Medium? {
@@ -1340,6 +1481,7 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
         if (mPos != position) {
             mPos = position
             updateActionbarTitle()
+            updateMotionPhotoInfo()
             invalidateOptionsMenu()
             scheduleSwipe()
         }

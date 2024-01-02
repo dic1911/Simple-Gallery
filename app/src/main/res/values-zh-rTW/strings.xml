@@ -421,6 +421,8 @@
         <b>Reddit：</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
+    <string name="use_motion_photo_support">啟用 GCam Motion Photo 支援</string>
+    <string name="motion_photo_always_view_video">總是打開 Motion Photo 的影片部分</string>
 
     <!--
         Haven't found some strings? There's more at
