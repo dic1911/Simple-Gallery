@@ -15,12 +15,12 @@ import org.fossify.commons.extensions.getFileSignature
 import org.fossify.commons.extensions.setText
 import org.fossify.commons.extensions.setVisibleIf
 import org.fossify.commons.helpers.ensureBackgroundThread
-import org.fossify.gallery.R
 import org.fossify.gallery.activities.MediaActivity
 import org.fossify.gallery.extensions.config
 import org.fossify.gallery.extensions.directoryDB
 import org.fossify.gallery.extensions.getFolderNameFromPath
 import org.fossify.gallery.extensions.widgetsDB
+import org.fossify.gallery.m030.R
 import org.fossify.gallery.models.Widget
 
 class MyWidgetProvider : AppWidgetProvider() {

@@ -8,13 +8,13 @@ import org.fossify.commons.extensions.hideKeyboard
 import org.fossify.commons.extensions.setupDialogStuff
 import org.fossify.commons.extensions.value
 import org.fossify.commons.models.RadioItem
-import org.fossify.gallery.R
-import org.fossify.gallery.databinding.DialogSlideshowBinding
 import org.fossify.gallery.extensions.config
 import org.fossify.gallery.helpers.SLIDESHOW_ANIMATION_FADE
 import org.fossify.gallery.helpers.SLIDESHOW_ANIMATION_NONE
 import org.fossify.gallery.helpers.SLIDESHOW_ANIMATION_SLIDE
 import org.fossify.gallery.helpers.SLIDESHOW_DEFAULT_INTERVAL
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.DialogSlideshowBinding
 
 class SlideshowDialog(val activity: BaseSimpleActivity, val callback: () -> Unit) {
     private val binding: DialogSlideshowBinding

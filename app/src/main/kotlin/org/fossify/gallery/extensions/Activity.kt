@@ -34,8 +34,6 @@ import org.fossify.commons.extensions.*
 import org.fossify.commons.helpers.*
 import org.fossify.commons.models.FAQItem
 import org.fossify.commons.models.FileDirItem
-import org.fossify.gallery.BuildConfig
-import org.fossify.gallery.R
 import org.fossify.gallery.activities.MediaActivity
 import org.fossify.gallery.activities.SettingsActivity
 import org.fossify.gallery.activities.SimpleActivity
@@ -45,6 +43,8 @@ import org.fossify.gallery.dialogs.ResizeMultipleImagesDialog
 import org.fossify.gallery.dialogs.ResizeWithPathDialog
 import org.fossify.gallery.helpers.DIRECTORY
 import org.fossify.gallery.helpers.RECYCLE_BIN
+import org.fossify.gallery.m030.BuildConfig
+import org.fossify.gallery.m030.R
 import org.fossify.gallery.models.DateTaken
 import java.io.*
 import java.text.SimpleDateFormat

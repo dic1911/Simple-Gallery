@@ -4,9 +4,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import org.fossify.commons.views.MySquareImageView
-import org.fossify.gallery.databinding.DirectoryItemGridRoundedCornersBinding
-import org.fossify.gallery.databinding.DirectoryItemGridSquareBinding
-import org.fossify.gallery.databinding.DirectoryItemListBinding
+import org.fossify.gallery.m030.databinding.DirectoryItemGridRoundedCornersBinding
+import org.fossify.gallery.m030.databinding.DirectoryItemGridSquareBinding
+import org.fossify.gallery.m030.databinding.DirectoryItemListBinding
 
 interface DirectoryItemBinding {
     val root: ViewGroup

@@ -12,10 +12,10 @@ import org.fossify.commons.extensions.getRealPathFromURI
 import org.fossify.commons.extensions.scanPathRecursively
 import org.fossify.commons.helpers.ensureBackgroundThread
 import org.fossify.commons.helpers.isPiePlus
-import org.fossify.gallery.R
 import org.fossify.gallery.extensions.addPathToDB
 import org.fossify.gallery.extensions.config
 import org.fossify.gallery.extensions.updateDirectoryPath
+import org.fossify.gallery.m030.R
 
 open class SimpleActivity : BaseSimpleActivity() {
     val observer = object : ContentObserver(null) {

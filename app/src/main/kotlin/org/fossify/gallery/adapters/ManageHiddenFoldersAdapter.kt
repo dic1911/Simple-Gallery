@@ -10,9 +10,9 @@ import org.fossify.commons.extensions.isPathOnSD
 import org.fossify.commons.extensions.setupViewBackground
 import org.fossify.commons.interfaces.RefreshRecyclerViewListener
 import org.fossify.commons.views.MyRecyclerView
-import org.fossify.gallery.R
-import org.fossify.gallery.databinding.ItemManageFolderBinding
 import org.fossify.gallery.extensions.removeNoMedia
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.ItemManageFolderBinding
 
 class ManageHiddenFoldersAdapter(
     activity: BaseSimpleActivity, var folders: ArrayList<String>, val listener: RefreshRecyclerViewListener?,

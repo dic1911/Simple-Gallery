@@ -6,10 +6,10 @@ import org.fossify.commons.extensions.*
 import org.fossify.commons.helpers.NavigationIcon
 import org.fossify.commons.helpers.isRPlus
 import org.fossify.commons.interfaces.RefreshRecyclerViewListener
-import org.fossify.gallery.R
 import org.fossify.gallery.adapters.ManageFoldersAdapter
-import org.fossify.gallery.databinding.ActivityManageFoldersBinding
 import org.fossify.gallery.extensions.config
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.ActivityManageFoldersBinding
 
 class ExcludedFoldersActivity : SimpleActivity(), RefreshRecyclerViewListener {
 

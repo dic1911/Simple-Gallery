@@ -5,10 +5,10 @@ import org.fossify.commons.activities.BaseSimpleActivity
 import org.fossify.commons.extensions.beVisibleIf
 import org.fossify.commons.extensions.getAlertDialogBuilder
 import org.fossify.commons.extensions.setupDialogStuff
-import org.fossify.gallery.R
-import org.fossify.gallery.databinding.DialogChangeGroupingBinding
 import org.fossify.gallery.extensions.config
 import org.fossify.gallery.helpers.*
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.DialogChangeGroupingBinding
 
 class ChangeGroupingDialog(val activity: BaseSimpleActivity, val path: String = "", val callback: () -> Unit) :
     DialogInterface.OnClickListener {

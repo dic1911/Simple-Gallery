@@ -26,10 +26,10 @@ import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.exoplayer.source.MediaSource
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import org.fossify.commons.extensions.*
-import org.fossify.gallery.R
-import org.fossify.gallery.databinding.ActivityVideoPlayerBinding
 import org.fossify.gallery.extensions.*
 import org.fossify.gallery.helpers.*
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.ActivityVideoPlayerBinding
 
 @UnstableApi
 open class VideoPlayerActivity : SimpleActivity(), SeekBar.OnSeekBarChangeListener, TextureView.SurfaceTextureListener {

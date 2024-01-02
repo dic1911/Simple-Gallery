@@ -12,9 +12,9 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import org.fossify.commons.extensions.onGlobalLayout
-import org.fossify.gallery.R
 import org.fossify.gallery.extensions.audioManager
 import org.fossify.gallery.helpers.DRAG_THRESHOLD
+import org.fossify.gallery.m030.R
 
 // allow horizontal swipes through the layout, else it can cause glitches at zoomed in images
 class MediaSideScroll(context: Context, attrs: AttributeSet) : RelativeLayout(context, attrs) {

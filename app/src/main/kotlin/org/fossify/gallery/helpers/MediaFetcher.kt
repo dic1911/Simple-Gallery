@@ -13,8 +13,8 @@ import android.provider.MediaStore.Images
 import android.text.format.DateFormat
 import org.fossify.commons.extensions.*
 import org.fossify.commons.helpers.*
-import org.fossify.gallery.R
 import org.fossify.gallery.extensions.*
+import org.fossify.gallery.m030.R
 import org.fossify.gallery.models.Medium
 import org.fossify.gallery.models.ThumbnailItem
 import org.fossify.gallery.models.ThumbnailSection

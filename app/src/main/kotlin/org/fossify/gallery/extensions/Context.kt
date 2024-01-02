@@ -36,11 +36,11 @@ import com.squareup.picasso.Picasso
 import org.fossify.commons.extensions.*
 import org.fossify.commons.helpers.*
 import org.fossify.commons.views.MySquareImageView
-import org.fossify.gallery.R
 import org.fossify.gallery.asynctasks.GetMediaAsynctask
 import org.fossify.gallery.databases.GalleryDatabase
 import org.fossify.gallery.helpers.*
 import org.fossify.gallery.interfaces.*
+import org.fossify.gallery.m030.R
 import org.fossify.gallery.models.*
 import org.fossify.gallery.svg.SvgSoftwareLayerSetter
 import java.io.File

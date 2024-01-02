@@ -3,9 +3,9 @@ package org.fossify.gallery.dialogs
 import org.fossify.commons.activities.BaseSimpleActivity
 import org.fossify.commons.extensions.getAlertDialogBuilder
 import org.fossify.commons.extensions.setupDialogStuff
-import org.fossify.gallery.databinding.DialogManageBottomActionsBinding
 import org.fossify.gallery.extensions.config
 import org.fossify.gallery.helpers.*
+import org.fossify.gallery.m030.databinding.DialogManageBottomActionsBinding
 
 class ManageBottomActionsDialog(val activity: BaseSimpleActivity, val callback: (result: Int) -> Unit) {
     private val binding = DialogManageBottomActionsBinding.inflate(activity.layoutInflater)

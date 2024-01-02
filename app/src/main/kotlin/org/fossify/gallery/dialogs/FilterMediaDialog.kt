@@ -3,10 +3,10 @@ package org.fossify.gallery.dialogs
 import org.fossify.commons.activities.BaseSimpleActivity
 import org.fossify.commons.extensions.getAlertDialogBuilder
 import org.fossify.commons.extensions.setupDialogStuff
-import org.fossify.gallery.R
-import org.fossify.gallery.databinding.DialogFilterMediaBinding
 import org.fossify.gallery.extensions.config
 import org.fossify.gallery.helpers.*
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.DialogFilterMediaBinding
 
 class FilterMediaDialog(val activity: BaseSimpleActivity, val callback: (result: Int) -> Unit) {
     private val binding = DialogFilterMediaBinding.inflate(activity.layoutInflater)

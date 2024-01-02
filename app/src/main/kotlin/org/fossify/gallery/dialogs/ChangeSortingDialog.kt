@@ -4,10 +4,10 @@ import android.content.DialogInterface
 import org.fossify.commons.activities.BaseSimpleActivity
 import org.fossify.commons.extensions.*
 import org.fossify.commons.helpers.*
-import org.fossify.gallery.R
-import org.fossify.gallery.databinding.DialogChangeSortingBinding
 import org.fossify.gallery.extensions.config
 import org.fossify.gallery.helpers.SHOW_ALL
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.DialogChangeSortingBinding
 
 class ChangeSortingDialog(
     val activity: BaseSimpleActivity, val isDirectorySorting: Boolean, val showFolderCheckbox: Boolean,

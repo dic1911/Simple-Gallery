@@ -26,9 +26,7 @@ import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import com.bumptech.glide.Glide
 import org.fossify.commons.extensions.*
 import org.fossify.commons.helpers.ensureBackgroundThread
-import org.fossify.gallery.R
 import org.fossify.gallery.activities.VideoActivity
-import org.fossify.gallery.databinding.PagerVideoItemBinding
 import org.fossify.gallery.extensions.config
 import org.fossify.gallery.extensions.hasNavBar
 import org.fossify.gallery.extensions.parseFileChannel
@@ -36,6 +34,8 @@ import org.fossify.gallery.helpers.Config
 import org.fossify.gallery.helpers.FAST_FORWARD_VIDEO_MS
 import org.fossify.gallery.helpers.MEDIUM
 import org.fossify.gallery.helpers.SHOULD_INIT_FRAGMENT
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.PagerVideoItemBinding
 import org.fossify.gallery.models.Medium
 import org.fossify.gallery.views.MediaSideScroll
 import java.io.File

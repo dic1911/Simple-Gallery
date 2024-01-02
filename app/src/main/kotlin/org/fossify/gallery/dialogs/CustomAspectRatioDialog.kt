@@ -7,7 +7,7 @@ import org.fossify.commons.extensions.getAlertDialogBuilder
 import org.fossify.commons.extensions.setupDialogStuff
 import org.fossify.commons.extensions.showKeyboard
 import org.fossify.commons.extensions.value
-import org.fossify.gallery.databinding.DialogCustomAspectRatioBinding
+import org.fossify.gallery.m030.databinding.DialogCustomAspectRatioBinding
 
 class CustomAspectRatioDialog(
     val activity: BaseSimpleActivity, val defaultCustomAspectRatio: Pair<Float, Float>?, val callback: (aspectRatio: Pair<Float, Float>) -> Unit

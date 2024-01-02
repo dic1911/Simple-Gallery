@@ -5,7 +5,7 @@ import androidx.appcompat.app.AlertDialog
 import org.fossify.commons.extensions.beGoneIf
 import org.fossify.commons.extensions.getAlertDialogBuilder
 import org.fossify.commons.extensions.setupDialogStuff
-import org.fossify.gallery.databinding.DialogDeleteWithRememberBinding
+import org.fossify.gallery.m030.databinding.DialogDeleteWithRememberBinding
 
 class DeleteWithRememberDialog(
     private val activity: Activity,

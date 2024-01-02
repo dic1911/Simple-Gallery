@@ -8,14 +8,14 @@ import org.fossify.commons.extensions.getProperPrimaryColor
 import org.fossify.commons.extensions.setupDialogStuff
 import org.fossify.commons.helpers.VIEW_TYPE_GRID
 import org.fossify.commons.views.MyGridLayoutManager
-import org.fossify.gallery.R
 import org.fossify.gallery.adapters.MediaAdapter
 import org.fossify.gallery.asynctasks.GetMediaAsynctask
-import org.fossify.gallery.databinding.DialogMediumPickerBinding
 import org.fossify.gallery.extensions.config
 import org.fossify.gallery.extensions.getCachedMedia
 import org.fossify.gallery.helpers.GridSpacingItemDecoration
 import org.fossify.gallery.helpers.SHOW_ALL
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.DialogMediumPickerBinding
 import org.fossify.gallery.models.Medium
 import org.fossify.gallery.models.ThumbnailItem
 import org.fossify.gallery.models.ThumbnailSection

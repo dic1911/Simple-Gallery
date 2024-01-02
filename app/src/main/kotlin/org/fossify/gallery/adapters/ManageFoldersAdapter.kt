@@ -9,8 +9,8 @@ import org.fossify.commons.extensions.getProperTextColor
 import org.fossify.commons.extensions.setupViewBackground
 import org.fossify.commons.interfaces.RefreshRecyclerViewListener
 import org.fossify.commons.views.MyRecyclerView
-import org.fossify.gallery.databinding.ItemManageFolderBinding
 import org.fossify.gallery.extensions.config
+import org.fossify.gallery.m030.databinding.ItemManageFolderBinding
 
 class ManageFoldersAdapter(
     activity: BaseSimpleActivity, var folders: ArrayList<String>, val isShowingExcludedFolders: Boolean, val listener: RefreshRecyclerViewListener?,

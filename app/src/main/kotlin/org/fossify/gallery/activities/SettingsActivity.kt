@@ -12,11 +12,11 @@ import org.fossify.commons.dialogs.*
 import org.fossify.commons.extensions.*
 import org.fossify.commons.helpers.*
 import org.fossify.commons.models.RadioItem
-import org.fossify.gallery.R
-import org.fossify.gallery.databinding.ActivitySettingsBinding
 import org.fossify.gallery.dialogs.*
 import org.fossify.gallery.extensions.*
 import org.fossify.gallery.helpers.*
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.ActivitySettingsBinding
 import org.fossify.gallery.models.AlbumCover
 import java.io.File
 import java.io.InputStream

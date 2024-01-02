@@ -5,11 +5,11 @@ import androidx.appcompat.app.AlertDialog
 import org.fossify.commons.activities.BaseSimpleActivity
 import org.fossify.commons.extensions.*
 import org.fossify.commons.helpers.ensureBackgroundThread
-import org.fossify.gallery.R
-import org.fossify.gallery.databinding.DialogResizeMultipleImagesBinding
 import org.fossify.gallery.extensions.ensureWriteAccess
 import org.fossify.gallery.extensions.rescanPathsAndUpdateLastModified
 import org.fossify.gallery.extensions.resizeImage
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.DialogResizeMultipleImagesBinding
 import java.io.File
 import kotlin.math.roundToInt
 

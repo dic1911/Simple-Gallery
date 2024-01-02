@@ -8,8 +8,8 @@ import org.fossify.commons.extensions.beVisibleIf
 import org.fossify.commons.extensions.getAlertDialogBuilder
 import org.fossify.commons.extensions.getBasePath
 import org.fossify.commons.extensions.setupDialogStuff
-import org.fossify.gallery.databinding.DialogExcludeFolderBinding
 import org.fossify.gallery.extensions.config
+import org.fossify.gallery.m030.databinding.DialogExcludeFolderBinding
 
 class ExcludeFolderDialog(val activity: BaseSimpleActivity, val selectedPaths: List<String>, val callback: () -> Unit) {
     private val alternativePaths = getAlternativePathsList()

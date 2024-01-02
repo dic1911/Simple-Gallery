@@ -5,8 +5,8 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import org.fossify.commons.activities.BaseSimpleActivity
 import org.fossify.commons.extensions.*
-import org.fossify.gallery.R
-import org.fossify.gallery.databinding.DialogResizeImageBinding
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.DialogResizeImageBinding
 
 class ResizeDialog(val activity: BaseSimpleActivity, val size: Point, val callback: (newSize: Point) -> Unit) {
     init {

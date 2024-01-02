@@ -12,10 +12,10 @@ import org.fossify.commons.extensions.*
 import org.fossify.commons.helpers.VIEW_TYPE_GRID
 import org.fossify.commons.views.MyGridLayoutManager
 import org.fossify.commons.views.MySearchMenu
-import org.fossify.gallery.R
 import org.fossify.gallery.adapters.DirectoryAdapter
-import org.fossify.gallery.databinding.DialogDirectoryPickerBinding
 import org.fossify.gallery.extensions.*
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.DialogDirectoryPickerBinding
 import org.fossify.gallery.models.Directory
 
 class PickDirectoryDialog(

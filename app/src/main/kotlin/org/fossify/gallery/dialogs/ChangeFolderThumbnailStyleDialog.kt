@@ -8,13 +8,13 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import org.fossify.commons.activities.BaseSimpleActivity
 import org.fossify.commons.extensions.*
-import org.fossify.gallery.R
 import org.fossify.gallery.adapters.toItemBinding
-import org.fossify.gallery.databinding.DialogChangeFolderThumbnailStyleBinding
-import org.fossify.gallery.databinding.DirectoryItemGridRoundedCornersBinding
-import org.fossify.gallery.databinding.DirectoryItemGridSquareBinding
 import org.fossify.gallery.extensions.config
 import org.fossify.gallery.helpers.*
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.DialogChangeFolderThumbnailStyleBinding
+import org.fossify.gallery.m030.databinding.DirectoryItemGridRoundedCornersBinding
+import org.fossify.gallery.m030.databinding.DirectoryItemGridSquareBinding
 
 class ChangeFolderThumbnailStyleDialog(val activity: BaseSimpleActivity, val callback: () -> Unit) : DialogInterface.OnClickListener {
     private var config = activity.config

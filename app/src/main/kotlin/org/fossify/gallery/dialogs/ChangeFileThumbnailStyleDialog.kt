@@ -6,8 +6,8 @@ import org.fossify.commons.dialogs.RadioGroupDialog
 import org.fossify.commons.extensions.getAlertDialogBuilder
 import org.fossify.commons.extensions.setupDialogStuff
 import org.fossify.commons.models.RadioItem
-import org.fossify.gallery.databinding.DialogChangeFileThumbnailStyleBinding
 import org.fossify.gallery.extensions.config
+import org.fossify.gallery.m030.databinding.DialogChangeFileThumbnailStyleBinding
 
 class ChangeFileThumbnailStyleDialog(val activity: BaseSimpleActivity) : DialogInterface.OnClickListener {
     private var config = activity.config

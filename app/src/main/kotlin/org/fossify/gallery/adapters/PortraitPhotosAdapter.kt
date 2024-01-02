@@ -11,8 +11,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import org.fossify.commons.extensions.getFileKey
-import org.fossify.gallery.R
-import org.fossify.gallery.databinding.PortraitPhotoItemBinding
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.PortraitPhotoItemBinding
 
 class PortraitPhotosAdapter(val context: Context, val photos: ArrayList<String>, val sideElementWidth: Int, val itemClick: (Int, Int) -> Unit) :
     RecyclerView.Adapter<PortraitPhotosAdapter.ViewHolder>() {

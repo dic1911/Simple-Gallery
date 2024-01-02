@@ -23,11 +23,8 @@ import org.fossify.commons.models.RadioItem
 import org.fossify.commons.models.Release
 import org.fossify.commons.views.MyGridLayoutManager
 import org.fossify.commons.views.MyRecyclerView
-import org.fossify.gallery.BuildConfig
-import org.fossify.gallery.R
 import org.fossify.gallery.adapters.DirectoryAdapter
 import org.fossify.gallery.databases.GalleryDatabase
-import org.fossify.gallery.databinding.ActivityMainBinding
 import org.fossify.gallery.dialogs.ChangeSortingDialog
 import org.fossify.gallery.dialogs.ChangeViewTypeDialog
 import org.fossify.gallery.dialogs.FilterMediaDialog
@@ -36,6 +33,9 @@ import org.fossify.gallery.extensions.*
 import org.fossify.gallery.helpers.*
 import org.fossify.gallery.interfaces.DirectoryOperationsListener
 import org.fossify.gallery.jobs.NewPhotoFetcher
+import org.fossify.gallery.m030.BuildConfig
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.ActivityMainBinding
 import org.fossify.gallery.models.Directory
 import org.fossify.gallery.models.Medium
 import java.io.*

@@ -22,13 +22,13 @@ import org.fossify.commons.extensions.*
 import org.fossify.commons.helpers.*
 import org.fossify.commons.models.FileDirItem
 import org.fossify.commons.views.MyRecyclerView
-import org.fossify.gallery.R
 import org.fossify.gallery.activities.ViewPagerActivity
-import org.fossify.gallery.databinding.*
 import org.fossify.gallery.dialogs.DeleteWithRememberDialog
 import org.fossify.gallery.extensions.*
 import org.fossify.gallery.helpers.*
 import org.fossify.gallery.interfaces.MediaOperationsListener
+import org.fossify.gallery.m030.R
+import org.fossify.gallery.m030.databinding.*
 import org.fossify.gallery.models.Medium
 import org.fossify.gallery.models.ThumbnailItem
 import org.fossify.gallery.models.ThumbnailSection
